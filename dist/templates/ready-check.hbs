@@ -1,0 +1,15 @@
+<div id="afk-ready-check" style="top: {{top}}; left: {{left}}; transform: scale({{scale}}); transform-origin: top left">
+    <div id="qss-hudTitle">Quick Status Select</div>
+    <div id="qss-reposition"><i class="fas fa-arrows-alt"></i></div>
+    <div class="qss-content">
+        <input class="qss-quick-input" type="search" value="{{this.searchTerm}}"></input>
+        <div class="qss-list-container">
+            <ul class="qss-ul">
+                {{#each this.statuses}}
+                <li class="qss-status-entry" data-status="{{json this}}">{{this.label}} <img src="{{this.icon}}" class="qss-status-icon" /> </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+
+</div>

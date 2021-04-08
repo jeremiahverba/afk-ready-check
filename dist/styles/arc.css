@@ -1,0 +1,116 @@
+#afk-ready-check {
+  z-index: 99;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  top: 80px;
+  left: 150px;
+  position: fixed;
+  height: auto;
+  width: auto;
+  margin: 5px;
+  background: none;
+  font-size: small;
+  background-color: rgba(129, 129, 129, 0.25);
+  color: #fff;
+  text-shadow: -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1);
+  text-align: left;
+}
+
+#afk-ready-check img {
+  max-width: 1.25rem;
+  border: none;
+  margin-bottom: -0.3rem;
+  float: right;
+}
+.qss-list-container {
+  overflow-y: scroll;
+  max-height: 50vh;
+}
+.qss-ul {
+  list-style-type: none;
+  padding: 0;
+  padding-left: 1rem;
+}
+.qss-ul li {
+  width: auto;
+}
+.qss-ul li:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+#afk-ready-check:hover > #qss-reposition {
+  display: block;
+  position: absolute;
+}
+
+#qss-hudTitle {
+  padding: 0.25em;
+  margin: 0.25em;
+  pointer-events: none;
+  position: absolute;
+  top: -25px !important;
+}
+#qss-hudTitle > #qss-reposition {
+  display: block;
+  position: absolute;
+}
+
+#qss-reposition {
+  display: none;
+  font-style: normal;
+  font-weight: normal;
+}
+
+#qss-reposition:hover {
+  cursor: pointer;
+}
+
+#qss-reposition {
+  left: -20px;
+  top: -25px;
+  position: absolute;
+}
+
+#qss-reposition > .fa,
+#qss-reposition > .fas {
+  color: #ddd;
+  padding: 3px;
+  margin: 3px;
+  text-shadow: -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1), -1px -1px 1px rgba(52, 52, 52, 1);
+  text-align: center;
+  pointer-events: none;
+}
+
+#qss-reposition > .fa,
+#qss-reposition > .fas {
+  font-size: small;
+}
+
+#qss-reposition:hover > i {
+  text-shadow: 0 0 10px #ff6400;
+  color: #fff;
+}
+
+.player-afk {
+  color: red;
+}
+.player-not-afk {
+  color: green;
+}
+.player-unknown {
+  color: yellow;
+  animation: Pulsate 1s linear infinite;
+}
+
+@keyframes Pulsate {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

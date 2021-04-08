@@ -1,0 +1,14 @@
+{
+  "name": "afk-ready-check",
+  "title": "AFK Ready Check",
+  "description": "an afk status indicator and GM-powered ready check",
+  "version": "1.0.0",
+  "author": "exodu",
+  "esmodules": ["./scripts/arc.js"],
+  "styles": ["./styles/arc.css"],
+  "minimumCoreVersion": "0.5.0",
+  "license": "LICENSE",
+  "url": "https://github.com/jeremiahverba/afk-ready-check",
+  "manifest": "https://github.com/jeremiahverba/afk-ready-check/master/src/module.json",
+  "download": "https://github.com/jeremiahverba/afk-ready-check/v1.0.0/package/afk-ready-check-v1.0.0.zip"
+}
