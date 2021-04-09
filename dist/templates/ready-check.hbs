@@ -1,15 +1,55 @@
-<div id="afk-ready-check" style="top: {{top}}; left: {{left}}; transform: scale({{scale}}); transform-origin: top left">
-    <div id="qss-hudTitle">Quick Status Select</div>
-    <div id="qss-reposition"><i class="fas fa-arrows-alt"></i></div>
-    <div class="qss-content">
-        <input class="qss-quick-input" type="search" value="{{this.searchTerm}}"></input>
-        <div class="qss-list-container">
-            <ul class="qss-ul">
-                {{#each this.statuses}}
-                <li class="qss-status-entry" data-status="{{json this}}">{{this.label}} <img src="{{this.icon}}" class="qss-status-icon" /> </li>
+<div
+  id="afk-ready-check-window"
+  class="app window-app form"
+  data-appid="60"
+  style="z-index: 100; width: 600px; left: 980px; top: 0px; height: 600px;"
+>
+  <header class="window-header flexrow draggable">
+    <h4 class="window-title">
+      AFK / Ready Check!
+    </h4>
+  </header>
+  <section class="window-content">
+    <section class="content">
+      <div class="tab active">
+        this is where the list of players goes
+        <div id="afk-ready-check">
+          <div class="afk-ready-content">
+            <div class="player-list-container">
+              <ul class="player-list-ul">
+                {{#each this.playerStatuses}}
+                  <li class="player-status-entry">
+                    {{this.name}}
+                    :
+                    {{#switch this.status}}
+                      {{#case 0}}
+                        <i class="fas fa-dice-d20 player-not-afk"></i>
+                      {{/case}}
+                      {{#case 1}}
+                        <i class="fas fa-dice-d20 player-afk"></i>
+                      {{/case}}
+                      {{#case 2}}
+                        <i class="fas fa-question player-unknown"></i>
+                      {{/case}}
+                    {{/switch}}
+                    {{!-- <img src="{{this.icon}}" class="qss-status-icon" /> --}}
+                  </li>
                 {{/each}}
-            </ul>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
-
+      </div>
+    </section>
+    <footer class="sheet-footer flexrow">
+      <button type="submit" name="ready" id="readyButton">
+        <i class="far fa-dice-d20"></i>
+        Ready!
+      </button>
+      <button type="button" name="afk" id="afkButton">
+        <i class="fas fa-cancel"></i>
+        AFK.
+      </button>
+    </footer>
+  </section>
 </div>
