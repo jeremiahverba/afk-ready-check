@@ -7,9 +7,10 @@
   "esmodules": ["./scripts/arc.js"],
   "socket": true,
   "styles": ["./styles/arc.css"],
-  "minimumCoreVersion": "0.5.0",
+  "minimumCoreVersion": "0.7.7",
+  "compatibleCoreVersion": "0.7.9",
   "license": "LICENSE",
   "url": "https://github.com/jeremiahverba/afk-ready-check",
-  "manifest": "https://github.com/jeremiahverba/afk-ready-check/master/src/module.json",
+  "manifest": "https://raw.githubusercontent.com/jeremiahverba/afk-ready-check/main/src/module.json",
   "download": "https://github.com/jeremiahverba/afk-ready-check/v1.0.0/package/afk-ready-check-v1.0.0.zip"
 }

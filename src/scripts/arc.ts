@@ -72,6 +72,7 @@ Hooks.once('canvasReady', async () => {
       socket.emit(SOCKET_NAME, { type: ArcSocketEventType.readyCheck, data: {} });
       setAllPlayerStatusesToUnknown();
       game.readyCheckHud.render(true);
+      AudioHelper.play({ src: 'modules/afk-ready-check/sounds/ready-check.ogg', volume: 0.8, autoplay: true, loop: false }, true);
       return false;
     }
   });
