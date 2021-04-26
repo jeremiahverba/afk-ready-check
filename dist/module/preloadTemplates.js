@@ -19,5 +19,12 @@ export const preloadTemplates = async function () {
             return value;
         }
     });
+    Handlebars.registerHelper('showCountdown', function (countDown, options) {
+        'use strict';
+        if (countDown < 60) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
     return loadTemplates(templatePaths);
 };

@@ -1,3 +1,19 @@
+#afk-ready-check-window {
+  z-index: 100;
+}
+#readyButton {
+  max-height: 3rem;
+}
+#afkButton {
+  max-height: 3rem;
+}
+.buttonContainer {
+  position: relative;
+  top: 0;
+}
+.player-list-container {
+  font-size: 2rem;
+}
 .player-afk {
   color: red;
 }

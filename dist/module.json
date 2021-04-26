@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "author": "exodu",
   "esmodules": ["./scripts/arc.js"],
+  "socket": true,
   "styles": ["./styles/arc.css"],
   "minimumCoreVersion": "0.5.0",
   "license": "LICENSE",

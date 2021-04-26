@@ -1,41 +1,57 @@
 import { preloadTemplates } from '../module/preloadTemplates.js';
 import { log } from './debug.js';
 import { ReadyCheckHud } from './ready-check.js';
+const AFK_READY_CHECK_CHAT_COMMAND = '/readycheck';
+export const SOCKET_NAME = 'module.afk-ready-check';
+export var ArcSocketEventType;
+(function (ArcSocketEventType) {
+    ArcSocketEventType["readyCheck"] = "afk-ready-check-event";
+    ArcSocketEventType["statusReport"] = "afk-ready-check-status-report-event";
+})(ArcSocketEventType || (ArcSocketEventType = {}));
 Hooks.once('init', async function () {
     log('Initializing afk-ready-check');
     await preloadTemplates();
 });
 Hooks.once('canvasReady', async () => {
     log('got canvas ready hook!', game, canvas);
+    const socket = game.socket;
+    socket.on(SOCKET_NAME, (socketEvent) => {
+        log('got socket event: ', socketEvent);
+        switch (socketEvent.type) {
+            case ArcSocketEventType.readyCheck:
+                log('got the afk-ready-check socket event!');
+                if (!isGM()) {
+                    setAllPlayerStatusesToUnknown();
+                    game.readyCheckHud.render(true);
+                }
+                break;
+            case ArcSocketEventType.statusReport:
+                const name = socketEvent.data.name;
+                const status = socketEvent.data.status;
+                log('player reporting status: ', name, status);
+                game.playerStatuses.set(name, status);
+                renderPlayerAfkStatus(name, status);
+                game.readyCheckHud.render(false);
+                const playerStatusesArray = Array.from(game.playerStatuses.values());
+                if (playerStatusesArray.every((s) => s !== AfkStatus.unknown)) {
+                    log('all players reported successfully, shutting down...');
+                    game.readyCheckHud.shutdown();
+                }
+                break;
+            default:
+                log('unexpected socket event type received.', socketEvent);
+        }
+    });
     initializeAllPlayersAfkStatuses();
     if (!game.readyCheckHud) {
         game.readyCheckHud = new ReadyCheckHud();
     }
-    Hooks.on('playerReportStatus', async (name, status) => {
-        log('player reporting status: ', name, status);
-        game.playerStatuses.set(name, status);
-        renderPlayerAfkStatus(name, status);
-        game.readyCheckHud.render(true);
-        if (Array.from(game.playerStatuses.values()).every((s) => s !== AfkStatus.unknown)) {
-            await game.readyCheckHud.close();
-        }
-    });
-    Hooks.on('afk-ready-check', () => {
-        log('got the afk-ready-check hook!');
-        game.readyCheckHud.render(true);
-    });
-    Hooks.on('renderReadyCheckHud', () => {
-        log('got the renderReadyCheckHud hook!');
-        setTimeout(() => {
-            game.readyCheckHud.close();
-        }, 10000);
-    });
     Hooks.on('preCreateChatMessage', (data, options) => {
-        if (data.content.toLowerCase().trim() === '/readycheck') {
+        if (data.content.toLowerCase().trim() === AFK_READY_CHECK_CHAT_COMMAND && isGM()) {
             log('ready check chat command intercepted!');
+            socket.emit(SOCKET_NAME, { type: ArcSocketEventType.readyCheck, data: {} });
             setAllPlayerStatusesToUnknown();
-            processAllPlayerStatuses();
-            game.readyCheckHud.performReadyCheck();
+            game.readyCheckHud.render(true);
             return false;
         }
     });
@@ -69,6 +85,7 @@ function setAllPlayerStatusesToUnknown() {
     game.playerStatuses.forEach((status, name, allStatuses) => {
         log('setting player status: ', name, AfkStatus.unknown);
         game.playerStatuses.set(name, AfkStatus.unknown);
+        renderPlayerAfkStatus(name, status);
     });
 }
 function processAllPlayerStatuses() {
