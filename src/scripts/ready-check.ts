@@ -29,7 +29,6 @@ export class ReadyCheckHud extends Application {
       id: 'afk-ready-check-hud',
       classes: [],
       width: 600,
-      //height: 600,
       left: 980,
       top: 0,
       popOut: true,

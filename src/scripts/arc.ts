@@ -10,6 +10,8 @@ declare global {
 }
 
 const AFK_READY_CHECK_CHAT_COMMAND = '/readycheck';
+const AFK_CHAT_COMMAND = '/afk';
+const READY_CHAT_COMMAND = '/ready';
 
 export const SOCKET_NAME = 'module.afk-ready-check';
 export enum ArcSocketEventType {
@@ -66,13 +68,25 @@ Hooks.once('canvasReady', async () => {
     game.readyCheckHud = new ReadyCheckHud();
   }
 
-  Hooks.on('preCreateChatMessage', (data, options) => {
+  Hooks.on('preCreateChatMessage', (msg, data, options) => {
     if (data.content.toLowerCase().trim() === AFK_READY_CHECK_CHAT_COMMAND && isGM()) {
       log('ready check chat command intercepted!');
       socket.emit(SOCKET_NAME, { type: ArcSocketEventType.readyCheck, data: {} });
       setAllPlayerStatusesToUnknown();
       game.readyCheckHud.render(true);
       AudioHelper.play({ src: 'modules/afk-ready-check/sounds/ready-check.ogg', volume: 0.8, autoplay: true, loop: false }, true);
+      return false;
+    }
+    if (data.content.toLowerCase().trim() === AFK_CHAT_COMMAND) {
+      log('afk chat command intercepted!');
+      socket.emit(SOCKET_NAME, { type: ArcSocketEventType.statusReport, data: { name: game.user.name, status: AfkStatus.afk } });
+      renderPlayerAfkStatus(game.user.name, AfkStatus.afk);
+      return false;
+    }
+    if (data.content.toLowerCase().trim() === READY_CHAT_COMMAND) {
+      log('ready check chat command intercepted!');
+      socket.emit(SOCKET_NAME, { type: ArcSocketEventType.statusReport, data: { name: game.user.name, status: AfkStatus.notAfk } });
+      renderPlayerAfkStatus(game.user.name, AfkStatus.notAfk);
       return false;
     }
   });
