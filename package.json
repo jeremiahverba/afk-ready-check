@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "foundry-afk-ready-check-module",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "A Foundry VTT module that let's users indicate AFK status, and allows GMs to issue a ready check pop up.",
 	"scripts": {
 		"package": "gulp package",
@@ -9,7 +9,7 @@
 		"build:watch": "gulp watch",
 		"clean": "gulp clean && gulp link --clean",
 		"update": "npm install --save-dev gitlab:foundry-projects/foundry-pc/foundry-pc-types",
-		"publish": "gulp publish -u 1.1.0"
+		"publish": "gulp publish -u 1.2.0"
 	},
 	"author": "",
 	"license": "",
