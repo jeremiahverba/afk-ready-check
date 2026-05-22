@@ -26,5 +26,5 @@
   "license": "LICENSE",
   "url": "https://github.com/jeremiahverba/afk-ready-check",
   "manifest": "https://raw.githubusercontent.com/jeremiahverba/afk-ready-check/main/src/module.json",
-  "download": "https://github.com/jeremiahverba/afk-ready-check/releases/download/v1.2.1/afk-ready-check-v1.2.1.zip"
+  "download": "https://raw.githubusercontent.com/jeremiahverba/afk-ready-check/main/package/afk-ready-check-v1.2.1.zip"
 }
